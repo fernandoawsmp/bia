@@ -1,6 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useLog } from "../contexts/LogContext.jsx";
 
+const getEnvironmentInfo = () => {
+  const { protocol, hostname, port } = window.location;
+
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
+    return { icon: "🏠", label: "Local", description: `${hostname}:${port}`, color: "#3b82f6" };
+  }
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(hostname) && protocol === "http:") {
+    return { icon: "🌐", label: "IP Direto", description: `${hostname}${port ? ":" + port : ""}`, color: "#f59e0b" };
+  }
+  if (protocol === "http:" && hostname.includes(".elb.")) {
+    return { icon: "⚖️", label: "ALB HTTP", description: hostname, color: "#ef4444" };
+  }
+  if (protocol === "https:") {
+    return { icon: "🔒", label: "Produção", description: hostname, color: "#22c55e" };
+  }
+  return { icon: "❓", label: "Outro", description: `${hostname}${port ? ":" + port : ""}`, color: "#6b7280" };
+};
+
 const Version = () => {
   const [loading, setLoading] = useState(true);
   const [apiData, setApiData] = useState(null);
@@ -8,6 +26,7 @@ const Version = () => {
   const { logApiRequest, logApiResponse, logApiError, addLog } = useLog();
 
   const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+  const envInfo = getEnvironmentInfo();
 
   const fetchVersionInfo = async () => {
     setLoading(true);
@@ -101,6 +120,24 @@ const Version = () => {
                 <p><strong>Última verificação:</strong> {apiData.timestamp}</p>
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="version-card">
+          <div className="card-header">
+            <h3>🌍 Ambiente</h3>
+            <span
+              className="env-badge"
+              style={{ backgroundColor: envInfo.color }}
+            >
+              {envInfo.icon} {envInfo.label}
+            </span>
+          </div>
+          <div className="card-content">
+            <p><strong>Tipo:</strong> {envInfo.label}</p>
+            <p><strong>Endereço:</strong> {envInfo.description}</p>
+            <p><strong>Protocolo:</strong> {window.location.protocol}</p>
+            <p><strong>API URL:</strong> {apiUrl}</p>
           </div>
         </div>
       </div>

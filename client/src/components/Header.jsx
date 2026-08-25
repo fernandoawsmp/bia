@@ -19,17 +19,17 @@ const Header = ({ title }) => {
           >
             📋 Tarefas
           </Link>
-          <Link 
-            to="/versao" 
-            className={`nav-link ${location.pathname === '/versao' ? 'active' : ''}`}
-          >
-            🔧 Versão
-          </Link>
-          <Link 
-            to="/about" 
+          <Link
+            to="/about"
             className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
           >
             ℹ️ Sobre
+          </Link>
+          <Link
+            to="/versao"
+            className={`nav-link ${location.pathname === '/versao' ? 'active' : ''}`}
+          >
+            🔌 Versão
           </Link>
         </nav>
       </div>
