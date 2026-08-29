@@ -129,6 +129,8 @@ body {
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-card);
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .header h1 {
@@ -547,7 +549,7 @@ footer {
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 /* Version Info */
@@ -922,15 +924,6 @@ footer {
   }
 }
 /* Header Navigation */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
 .header-content {
   display: flex;
   flex-direction: column;
@@ -962,12 +955,6 @@ footer {
   color: var(--accent-primary);
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
-}
-
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 /* Version Page Styles */
