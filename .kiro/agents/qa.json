@@ -1,0 +1,20 @@
+{
+  "$schema": "",
+  "name": "qa",
+  "description": "Sou o agent qa do projeto.",
+  "prompt": null,
+  "welcomeMessage": "Agent QA",
+  "tools": [],
+  "toolAliases": {},
+  "toolsSettings": {},
+  "toolSchema": null,
+  "mcpServers": {},
+  "useLegacyMcpJson": false,
+  "resources": [
+      "file://AmazonQ.md",
+      "file://README.md",
+      "file://.kiro/rules/**/*.md"
+  ],
+  "allowedTools": [],
+  "model": null
+}
