@@ -17,12 +17,12 @@ Esta task será implementada em worktree isolado em `.kiro/worktrees/001-feat-te
 
 Antes de começar a implementar, o agent deve:
 
-- [ ] **Verificar branch atual:** `git branch --show-current`
+- [x] **Verificar branch atual:** `git branch --show-current`
   - Se não estiver em `ia-main`, **PERGUNTAR** ao usuário se pode trocar
   - Aguardar autorização
   - Após autorização: `git checkout ia-main && git pull origin ia-main`
 
-- [ ] **Mover task para doing:**
+- [x] **Mover task para doing:**
   ```bash
   mv .kiro/tasks/001-feat-tela-versao-api.md .kiro/tasks/doing/
   git add .kiro/tasks/
@@ -30,7 +30,7 @@ Antes de começar a implementar, o agent deve:
   git push origin ia-main
   ```
 
-- [ ] **Criar worktree:**
+- [x] **Criar worktree:**
   ```bash
   git worktree add .kiro/worktrees/001-feat-tela-versao-api -b feature/001-feat-tela-versao-api ia-main
   cd .kiro/worktrees/001-feat-tela-versao-api
@@ -50,27 +50,27 @@ A tela deverá seguir o mesmo padrão visual e estrutural da tela de tarefas já
 ## 🎯 Critérios de Aceitação
 
 ### Funcionalidades Principais
-- [ ] Criar componente `Version.jsx` em `client/src/components/` seguindo o padrão do componente `Tasks.jsx`
-- [ ] Implementar rota `/versao` no sistema de roteamento do React
-- [ ] Exibir informações de versão da API consumindo o endpoint `/api/versao`
-- [ ] Mostrar status de conectividade com a API (online/offline)
+- [x] Criar componente `Version.jsx` em `client/src/components/` seguindo o padrão do componente `Tasks.jsx`
+- [x] Implementar rota `/versao` no sistema de roteamento do React
+- [x] Exibir informações de versão da API consumindo o endpoint `/api/versao`
+- [x] Mostrar status de conectividade com a API (online/offline)
 
 ### Interface e UX
-- [ ] Seguir o mesmo padrão visual da tela de tarefas
-- [ ] Implementar loading state durante verificação da API
-- [ ] Exibir indicadores visuais de status (ícones coloridos para online/offline)
-- [ ] Incluir botão para atualizar as informações manualmente
-- [ ] Interface responsiva para diferentes tamanhos de tela
+- [x] Seguir o mesmo padrão visual da tela de tarefas
+- [x] Implementar loading state durante verificação da API
+- [x] Exibir indicadores visuais de status (ícones coloridos para online/offline)
+- [x] Incluir botão para atualizar as informações manualmente
+- [x] Interface responsiva para diferentes tamanhos de tela
 
 ### Navegação
-- [ ] Adicionar link no menu/header para acessar a tela de versão
-- [ ] Implementar indicação de página ativa (link ativo no nav destaca a página corrente)
-- [ ] Manter consistência com o padrão de navegação existente
+- [x] Adicionar link no menu/header para acessar a tela de versão
+- [x] Implementar indicação de página ativa (link ativo no nav destaca a página corrente)
+- [x] Manter consistência com o padrão de navegação existente
 
 ### Tratamento de Erros
-- [ ] Exibir mensagem amigável quando a API estiver indisponível
-- [ ] Implementar timeout para requisições
-- [ ] Log de erros no contexto de debug existente (se houver)
+- [x] Exibir mensagem amigável quando a API estiver indisponível
+- [x] Implementar timeout para requisições
+- [x] Log de erros no contexto de debug existente (se houver)
 
 ---
 
@@ -96,21 +96,21 @@ A tela deverá seguir o mesmo padrão visual e estrutural da tela de tarefas já
 
 ## ✅ Checklist de Implementação
 
-- [ ] Ler e entender o componente `Tasks.jsx` para referenciar o padrão
-- [ ] Verificar a resposta do endpoint `/api/versao` para mapear os campos
-- [ ] Criar o componente `Version.jsx` com loading state e tratamento de erro
-- [ ] Adicionar a rota `/versao` no sistema de rotas
-- [ ] Adicionar link de navegação no header/menu apontando para `/versao`
-- [ ] Implementar destaque visual do link ativo na navegação
-- [ ] Implementar botão de atualizar manualmente
-- [ ] Verificar responsividade da tela
-- [ ] Rodar os testes existentes para garantir que nenhuma regressão foi introduzida:
+- [x] Ler e entender o componente `Tasks.jsx` para referenciar o padrão
+- [x] Verificar a resposta do endpoint `/api/versao` para mapear os campos
+- [x] Criar o componente `Version.jsx` com loading state e tratamento de erro
+- [x] Adicionar a rota `/versao` no sistema de rotas
+- [x] Adicionar link de navegação no header/menu apontando para `/versao`
+- [x] Implementar destaque visual do link ativo na navegação
+- [x] Implementar botão de atualizar manualmente
+- [x] Verificar responsividade da tela
+- [x] Rodar os testes existentes para garantir que nenhuma regressão foi introduzida:
   ```bash
   npm test
   ```
-- [ ] Testar manualmente a rota `/versao` no browser com API disponível
-- [ ] Testar comportamento quando API está indisponível
-- [ ] Fazer commit com mensagem descritiva:
+- [x] Testar manualmente a rota `/versao` no browser com API disponível
+- [x] Testar comportamento quando API está indisponível
+- [x] Fazer commit com mensagem descritiva:
   ```bash
   git add .
   git commit -m "feat: adiciona tela de versao da API"
@@ -121,17 +121,17 @@ A tela deverá seguir o mesmo padrão visual e estrutural da tela de tarefas já
 
 ## 📐 Definição de Pronto (DoD)
 
-- [ ] Componente `Version.jsx` criado e funcionando
-- [ ] Rota `/versao` configurada e acessível
-- [ ] Link de navegação presente no header/menu
-- [ ] Link ativo destacado visualmente na página corrente
-- [ ] Loading state exibido enquanto consulta a API
-- [ ] Status online/offline exibido com indicador visual
-- [ ] Mensagem amigável exibida quando API indisponível
-- [ ] Botão de atualizar funcional
-- [ ] Interface responsiva
-- [ ] Testes existentes passando sem regressão
-- [ ] Código segue os padrões do projeto (React hooks, context)
+- [x] Componente `Version.jsx` criado e funcionando
+- [x] Rota `/versao` configurada e acessível
+- [x] Link de navegação presente no header/menu
+- [x] Link ativo destacado visualmente na página corrente
+- [x] Loading state exibido enquanto consulta a API
+- [x] Status online/offline exibido com indicador visual
+- [x] Mensagem amigável exibida quando API indisponível
+- [x] Botão de atualizar funcional
+- [x] Interface responsiva
+- [x] Testes existentes passando sem regressão
+- [x] Código segue os padrões do projeto (React hooks, context)
 
 ---
 
