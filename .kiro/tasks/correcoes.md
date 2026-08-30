@@ -4,11 +4,12 @@
 A bolinha verde (indicador de status) foi movida de posição após a implementação, prejudicando a experiência do usuário.
 
 ### ✅ Correções Obrigatórias
-- [x] **RESTAURAR** a bolinha verde para sua posição original na interface ✅ *CSS duplicado removido*
-- [x] **MANTER** funcionalidade básica da bolinha (versão + status API apenas)
-- [x] **SEPARAR** responsabilidades: bolinha verde = info básica, tela `/versao` = detalhes completos
-- [x] **PRESERVAR** comportamento de clique original da bolinha verde
-- [x] **GARANTIR** que não há conflitos visuais entre bolinha e tela de versão ✅ *`.header` duplicado removido*
+- [ ] **RESTAURAR** a bolinha verde para sua posição original na interface ✅ *CSS duplicado removido*
+- [ ] **MANTER** funcionalidade básica da bolinha (versão + status API apenas)
+- [ ] **SEPARAR** responsabilidades: bolinha verde = info básica, tela `/versao` = detalhes completos
+- [ ] **PRESERVAR** comportamento de clique original da bolinha verde
+- [ ] **GARANTIR** que não há conflitos visuais entre bolinha e tela de versão ✅ *`.header` duplicado removido*
+- [ ] **ALTERAR** o botão "Add New Task" para "Incluir nova tarefa"
 
 ## Notas Técnicas
 - Reutilizar lógica existente do componente `VersionInfo.jsx` como base
