@@ -11,7 +11,7 @@ registerLocale("pt-BR", ptBR);
 const AddTask = ({ onAdd }) => {
   const [titulo, setTitulo] = useState("");
   const [dia, setDia] = useState(null);
-  const [importante, setImportante] = useState(false);
+  const [importante, setImportante] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   const onSubmit = (e) => {
@@ -35,7 +35,7 @@ const AddTask = ({ onAdd }) => {
 
     setTitulo("");
     setDia(null);
-    setImportante(false);
+    setImportante(true);
   };
 
   return (
