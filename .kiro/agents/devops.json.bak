@@ -11,13 +11,10 @@
   "mcpServers": {},
   "useLegacyMcpJson": false,
   "resources": [
-    "file://AmazonQ.md",
-    "file://README.md",
-    "file://.kiro/rules/**/*.md"
+      "file://AmazonQ.md",
+      "file://README.md",
+      "file://.kiro/rules/**/*.md"
   ],
   "allowedTools": [],
-  "model": null,
-  "permissions": {
-    "rules": []
-  }
+  "model": null
 }

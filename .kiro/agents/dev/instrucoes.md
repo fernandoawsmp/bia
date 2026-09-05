@@ -5,4 +5,5 @@
   2. `docker compose build server`
   3. `docker compose up -d`
   4. Testar se a aplicação está funcionando (`curl -s http://localhost:3001/api/versao`)
-- Este processo garante que todas as mudanças no código sejam aplicadas corretamente no container.
+- Este processo garante que todas as mudanças no código sejam aplicadas corretamente no container
+. Após se certificar que está tudo ok e respondendo releia a task e marque os criterios da mesma que foram atendidos.

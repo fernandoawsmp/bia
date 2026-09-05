@@ -17,12 +17,12 @@ Esta task será implementada em worktree isolado em `.kiro/worktrees/004-fix-rem
 
 Antes de começar a implementar, o agent deve:
 
-- [ ] **Verificar branch atual:** `git branch --show-current`
+- [x] **Verificar branch atual:** `git branch --show-current`
   - Se não estiver em `ia-main`, **PERGUNTAR** ao usuário se pode trocar
   - Aguardar autorização
   - Após autorização: `git checkout ia-main && git pull origin ia-main`
 
-- [ ] **Mover task para doing:**
+- [x] **Mover task para doing:**
   ```bash
   mv .kiro/tasks/004-fix-remover-ambiente-tela-versao.md .kiro/tasks/doing/
   git add .kiro/tasks/
@@ -30,7 +30,7 @@ Antes de começar a implementar, o agent deve:
   git push origin ia-main
   ```
 
-- [ ] **Criar worktree:**
+- [x] **Criar worktree:**
   ```bash
   git worktree add .kiro/worktrees/004-fix-remover-ambiente-tela-versao -b feature/004-fix-remover-ambiente-tela-versao ia-main
   cd .kiro/worktrees/004-fix-remover-ambiente-tela-versao
@@ -109,18 +109,18 @@ const envInfo = getEnvironmentInfo();
 
 ## ✅ Checklist de Implementação
 
-- [ ] Abrir o arquivo `client/src/components/Version.jsx`
-- [ ] Remover a função `getEnvironmentInfo` do arquivo
-- [ ] Remover a linha `const envInfo = getEnvironmentInfo();` dentro do componente
-- [ ] Remover o segundo card "🌍 Ambiente" do JSX
-- [ ] Verificar que não restaram referências a `envInfo` no arquivo
-- [ ] Verificar visualmente que a tela `/versao` exibe apenas o card de Status da API
-- [ ] Verificar que o card de Status da API ainda funciona (carrega versão, mostra status)
-- [ ] Rodar os testes existentes para garantir que nenhuma regressão foi introduzida
+- [x] Abrir o arquivo `client/src/components/Version.jsx`
+- [x] Remover a função `getEnvironmentInfo` do arquivo
+- [x] Remover a linha `const envInfo = getEnvironmentInfo();` dentro do componente
+- [x] Remover o segundo card "🌍 Ambiente" do JSX
+- [x] Verificar que não restaram referências a `envInfo` no arquivo
+- [x] Verificar visualmente que a tela `/versao` exibe apenas o card de Status da API
+- [x] Verificar que o card de Status da API ainda funciona (carrega versão, mostra status)
+- [x] Rodar os testes existentes para garantir que nenhuma regressão foi introduzida
   ```bash
   npm test
   ```
-- [ ] Fazer commit com mensagem descritiva:
+- [x] Fazer commit com mensagem descritiva:
   ```bash
   git add client/src/components/Version.jsx
   git commit -m "fix: remove card de ambiente da tela de versao"
