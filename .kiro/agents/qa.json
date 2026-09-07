@@ -1,23 +1,40 @@
 {
-  "$schema": "",
   "name": "qa",
-  "description": "Sou o agent qa do projeto.",
-  "prompt": null,
+  "description": "Agente de QA responsável por garantir a qualidade das entregas.",
   "welcomeMessage": "Agent QA",
-  "tools": [],
+  "prompt": null,
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "env": {},
+      "timeout": 120000,
+      "disabled": false
+    }
+  },
+  "tools": [
+    "*"
+  ],
   "toolAliases": {},
-  "toolsSettings": {},
-  "toolSchema": null,
-  "mcpServers": {},
-  "useLegacyMcpJson": false,
+  "allowedTools": [
+    "fs_read"
+  ],
   "resources": [
-    "file://AmazonQ.md",
     "file://README.md",
     "file://.kiro/rules/**/*.md"
   ],
-  "allowedTools": [],
-  "model": null,
+  "hooks": [],
+  "toolsSettings": {},
+  "includeMcpJson": true,
+  "model": "auto",
   "permissions": {
-    "rules": []
+    "rules": [
+      {
+        "capability": "fs_read",
+        "effect": "allow"
+      }
+    ]
   }
 }
