@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import { registerLocale } from "react-datepicker";
-import { ptBR } from "date-fns/locale/pt-BR";
-import "react-datepicker/dist/react-datepicker.css";
-import "../styles/datepicker.css";
 import Modal from "./Modal";
-
-registerLocale("pt-BR", ptBR);
 
 const AddTask = ({ onAdd }) => {
   const [titulo, setTitulo] = useState("");
-  const [dia, setDia] = useState(null);
   const [importante, setImportante] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
@@ -22,19 +14,13 @@ const AddTask = ({ onAdd }) => {
       return;
     }
 
-    const formatDateToString = (date) => {
-      if (!date) return new Date().toLocaleDateString('pt-BR');
-      return date.toLocaleDateString('pt-BR');
-    };
-
-    onAdd({ 
-      titulo: titulo.trim(), 
-      dia_atividade: formatDateToString(dia), 
-      importante 
+    onAdd({
+      titulo: titulo.trim(),
+      dia_atividade: new Date().toLocaleDateString('pt-BR'),
+      importante,
     });
 
     setTitulo("");
-    setDia(null);
     setImportante(true);
   };
 
@@ -49,24 +35,7 @@ const AddTask = ({ onAdd }) => {
           onChange={(e) => setTitulo(e.target.value)}
         />
       </div>
-      
-      <div className="form-control">
-        <label>Data/Prazo</label>
-        <DatePicker
-          selected={dia}
-          onChange={(date) => setDia(date)}
-          locale="pt-BR"
-          dateFormat="dd/MM/yyyy"
-          placeholderText="Quando?"
-          isClearable
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={15}
-          className="datepicker-input"
-          calendarClassName="datepicker-calendar"
-        />
-      </div>
-      
+
       <div className="form-control-check">
         <input
           type="checkbox"
@@ -76,11 +45,11 @@ const AddTask = ({ onAdd }) => {
         />
         <label htmlFor="importante">Importante</label>
       </div>
-      
+
       <button type="submit" className="btn btn-block success">
         Incluir nova tarefa
       </button>
-      
+
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
