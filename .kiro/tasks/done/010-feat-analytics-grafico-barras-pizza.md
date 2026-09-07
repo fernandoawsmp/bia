@@ -148,21 +148,21 @@ npx shadcn-ui@latest add chart
 
 **Arquivo:** `client/src/components/Analytics.jsx`
 
-- [x] Criar novo componente funcional
-- [x] Receber `tasks` como prop
-- [x] Processar dados para agrupar por prioridade:
+- [ ] Criar novo componente funcional
+- [ ] Receber `tasks` como prop
+- [ ] Processar dados para agrupar por prioridade:
   ```javascript
   const importantesCount = tasks.filter(t => t.importante).length;
   const normaisCount = tasks.filter(t => !t.importante).length;
   ```
-- [x] Implementar gráfico de barras ou pizza usando shadcn Chart
-- [x] Adicionar título da página: "📊 Analytics - Tasks por Prioridade"
-- [x] Adicionar estatísticas complementares:
+- [ ] Implementar gráfico de barras ou pizza usando shadcn Chart
+- [ ] Adicionar título da página: "📊 Analytics - Tasks por Prioridade"
+- [ ] Adicionar estatísticas complementares:
   - Total de tasks
   - Percentual de importantes
   - Percentual de normais
-- [x] Botão de voltar para Home
-- [x] Estado vazio (quando não há tasks)
+- [ ] Botão de voltar para Home
+- [ ] Estado vazio (quando não há tasks)
 
 **Exemplo de estrutura de dados:**
 
@@ -185,12 +185,12 @@ const chartData = [
 
 **Arquivo:** `client/src/App.jsx`
 
-- [x] Importar componente Analytics
-- [x] Adicionar nova rota:
+- [ ] Importar componente Analytics
+- [ ] Adicionar nova rota:
   ```jsx
   <Route path="/analytics" element={<Analytics tasks={tasks} />} />
   ```
-- [x] Passar `tasks` como prop para o componente
+- [ ] Passar `tasks` como prop para o componente
 
 ### 4. Adicionar Link na Home
 
@@ -225,12 +225,12 @@ const chartData = [
 
 **Arquivo:** Adicionar ao CSS existente ou criar `client/src/styles/analytics.css`
 
-- [x] Estilizar página de analytics
-- [x] Garantir responsividade
-- [x] Integrar cores do tema (dark/light)
-- [x] Estilizar card de link na home
-- [x] Adicionar hover states
-- [x] Garantir acessibilidade (contraste, foco)
+- [ ] Estilizar página de analytics
+- [ ] Garantir responsividade
+- [ ] Integrar cores do tema (dark/light)
+- [ ] Estilizar card de link na home
+- [ ] Adicionar hover states
+- [ ] Garantir acessibilidade (contraste, foco)
 
 **Cores sugeridas para o gráfico:**
 - Importantes: `#f59e0b` (amber/warning)
@@ -386,30 +386,30 @@ const chartData = [
 
 ### Cenários de Teste
 
-- [x] **Teste 1:** Acessar `/analytics` com tasks importantes e normais
+- [ ] **Teste 1:** Acessar `/analytics` com tasks importantes e normais
   - Verificar contagem correta
   - Verificar renderização do gráfico
 
-- [x] **Teste 2:** Acessar `/analytics` sem nenhuma task
+- [ ] **Teste 2:** Acessar `/analytics` sem nenhuma task
   - Verificar mensagem de estado vazio
   - Verificar botão voltar funciona
 
-- [x] **Teste 3:** Criar nova task e verificar atualização
+- [ ] **Teste 3:** Criar nova task e verificar atualização
   - Marcar como importante
   - Voltar para analytics
   - Verificar se gráfico atualizou
 
-- [x] **Teste 4:** Responsividade
+- [ ] **Teste 4:** Responsividade
   - Testar em mobile (< 768px)
   - Testar em tablet (768px - 1024px)
   - Testar em desktop (> 1024px)
 
-- [x] **Teste 5:** Tema dark/light
+- [ ] **Teste 5:** Tema dark/light
   - Alternar tema
   - Verificar cores do gráfico
   - Verificar contraste e legibilidade
 
-- [x] **Teste 6:** Navegação
+- [ ] **Teste 6:** Navegação
   - Clicar no link da home
   - Ir para analytics
   - Voltar para home
@@ -419,20 +419,20 @@ const chartData = [
 
 ## 🔄 Definition of Done (DoD)
 
-- [x] Tailwind CSS instalado e configurado
-- [x] shadcn/ui instalado e funcional
-- [x] Componente Analytics criado
-- [x] Gráfico renderizando corretamente
-- [x] Rota `/analytics` criada no App.jsx
-- [x] Link visível na Home
-- [x] Navegação entre Home ↔ Analytics funcional
-- [x] Contagem de tasks por prioridade correta
-- [x] Estado vazio tratado
-- [x] Responsividade testada (mobile, tablet, desktop)
-- [x] Tema dark/light integrado
-- [x] Código commitado com mensagens descritivas
-- [x] Push realizado para o branch feature/010-feat-analytics-grafico-barras-pizza
-- [x] Todos os testes manuais executados com sucesso
+- [ ] Tailwind CSS instalado e configurado
+- [ ] shadcn/ui instalado e funcional
+- [ ] Componente Analytics criado
+- [ ] Gráfico renderizando corretamente
+- [ ] Rota `/analytics` criada no App.jsx
+- [ ] Link visível na Home
+- [ ] Navegação entre Home ↔ Analytics funcional
+- [ ] Contagem de tasks por prioridade correta
+- [ ] Estado vazio tratado
+- [ ] Responsividade testada (mobile, tablet, desktop)
+- [ ] Tema dark/light integrado
+- [ ] Código commitado com mensagens descritivas
+- [ ] Push realizado para o branch feature/007-feat-grafico-prioridade-tasks
+- [ ] Todos os testes manuais executados com sucesso
 
 ---
 

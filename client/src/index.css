@@ -1436,3 +1436,152 @@ footer {
 .chart-toggle-btn:hover:not(.active) {
   background: var(--bg-hover, rgba(0, 0, 0, 0.05));
 }
+
+/* =============================================
+   React DatePicker - Integração com tema BIA
+   ============================================= */
+
+/* Wrapper ocupa largura total como os outros inputs */
+.datepicker-wrapper {
+  width: 100%;
+}
+
+/* Input do datepicker segue o mesmo estilo dos demais inputs do formulário */
+.datepicker-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.datepicker-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.datepicker-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Popover / calendário */
+.react-datepicker {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  color: var(--text-primary) !important;
+}
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+/* Header do calendário */
+.react-datepicker__header {
+  background: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: 0.75rem 0.5rem 0.5rem !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: var(--text-primary) !important;
+}
+
+.react-datepicker__day-name {
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Dropdowns de mês e ano */
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  padding: 0.2rem 0.4rem !important;
+  font-size: 0.875rem !important;
+  font-family: inherit !important;
+  cursor: pointer;
+}
+
+/* Dias */
+.react-datepicker__day {
+  color: var(--text-primary) !important;
+  border-radius: 4px !important;
+  transition: background 0.15s ease !important;
+}
+
+.react-datepicker__day:hover {
+  background: var(--bg-secondary) !important;
+  color: var(--accent-primary) !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background: var(--accent-primary) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.react-datepicker__day--today {
+  font-weight: 700 !important;
+  color: var(--accent-primary) !important;
+}
+
+.react-datepicker__day--today.react-datepicker__day--selected {
+  color: white !important;
+}
+
+.react-datepicker__day--outside-month {
+  color: var(--text-secondary) !important;
+  opacity: 0.5;
+}
+
+/* Botões de navegação (setas) */
+.react-datepicker__navigation {
+  top: 0.85rem !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: var(--text-secondary) !important;
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: var(--accent-primary) !important;
+}
+
+/* Botão de limpar data (isClearable) */
+.react-datepicker__close-icon::after {
+  background: var(--text-secondary) !important;
+  color: white !important;
+  font-size: 0.75rem !important;
+}
+
+.react-datepicker__close-icon:hover::after {
+  background: var(--accent-danger) !important;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .react-datepicker {
+    font-size: 0.8rem !important;
+  }
+
+  .react-datepicker__day {
+    width: 1.8rem !important;
+    line-height: 1.8rem !important;
+    margin: 0.1rem !important;
+  }
+}
