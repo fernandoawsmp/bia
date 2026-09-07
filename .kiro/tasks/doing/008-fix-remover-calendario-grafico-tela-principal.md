@@ -17,12 +17,12 @@ Esta task será implementada em worktree isolado em `.kiro/worktrees/008-fix-rem
 
 Antes de começar a implementar, o agent deve:
 
-- [ ] **Verificar branch atual:** `git branch --show-current`
+- [x] **Verificar branch atual:** `git branch --show-current`
   - Se não estiver em `ia-main`, **PERGUNTAR** ao usuário se pode trocar
   - Aguardar autorização
   - Após autorização: `git checkout ia-main && git pull origin ia-main`
 
-- [ ] **Mover task para doing:**
+- [x] **Mover task para doing:**
   ```bash
   mv .kiro/tasks/008-fix-remover-calendario-grafico-tela-principal.md .kiro/tasks/doing/
   git add .kiro/tasks/
@@ -30,7 +30,7 @@ Antes de começar a implementar, o agent deve:
   git push origin ia-main
   ```
 
-- [ ] **Criar worktree:**
+- [x] **Criar worktree:**
   ```bash
   git worktree add .kiro/worktrees/008-fix-remover-calendario-grafico-tela-principal -b fix/008-fix-remover-calendario-grafico-tela-principal ia-main
   cd .kiro/worktrees/008-fix-remover-calendario-grafico-tela-principal
@@ -73,7 +73,7 @@ Simplificar a tela principal removendo:
 
 ### 1. Remover calendário do `AddTask.jsx`
 
-- [ ] Remover imports:
+- [x] Remover imports:
   ```js
   import DatePicker from "react-datepicker";
   import { registerLocale } from "react-datepicker";
@@ -81,22 +81,22 @@ Simplificar a tela principal removendo:
   import "react-datepicker/dist/react-datepicker.css";
   import "../styles/datepicker.css";
   ```
-- [ ] Remover a chamada `registerLocale("pt-BR", ptBR)`
-- [ ] Remover o state `const [dia, setDia] = useState(null)`
-- [ ] Remover o bloco JSX do campo "Data/Prazo":
+- [x] Remover a chamada `registerLocale("pt-BR", ptBR)`
+- [x] Remover o state `const [dia, setDia] = useState(null)`
+- [x] Remover o bloco JSX do campo "Data/Prazo":
   ```jsx
   <div className="form-control">
     <label>Data/Prazo</label>
     <DatePicker ... />
   </div>
   ```
-- [ ] Na função `onSubmit`, remover a função `formatDateToString` e ajustar o objeto enviado:
+- [x] Na função `onSubmit`, remover a função `formatDateToString` e ajustar o objeto enviado:
   - Remover a propriedade `dia_atividade: formatDateToString(dia)` **ou** manter enviando a data atual fixa (`new Date().toLocaleDateString('pt-BR')`) — a decisão deve preservar compatibilidade com o backend
   - **Recomendado:** manter `dia_atividade` enviando a data atual automaticamente para não quebrar o contrato com a API
 
 ### 2. Remover card de acesso rápido ao analytics do `App.jsx`
 
-- [ ] Localizar e remover o bloco JSX:
+- [x] Localizar e remover o bloco JSX:
   ```jsx
   {/* Card de acesso rápido ao Analytics */}
   <div className="analytics-link-wrapper">
@@ -110,36 +110,36 @@ Simplificar a tela principal removendo:
     </a>
   </div>
   ```
-- [ ] Verificar se o import do componente `Analytics` em `App.jsx` ainda é necessário (a rota `/analytics` deve ser mantida) — **não remover** o import nem a rota
+- [x] Verificar se o import do componente `Analytics` em `App.jsx` ainda é necessário (a rota `/analytics` deve ser mantida) — **não remover** o import nem a rota
 
 ### 3. Limpar arquivos órfãos (avaliar com cautela)
 
-- [ ] Verificar se `client/src/styles/datepicker.css` é referenciado em outros lugares:
+- [x] Verificar se `client/src/styles/datepicker.css` é referenciado em outros lugares:
   ```bash
   grep -r "datepicker" client/src --include="*.jsx" --include="*.css" --include="*.js"
   ```
-- [ ] Se não houver mais referências, remover o arquivo `datepicker.css`
-- [ ] Verificar se `react-datepicker` e `date-fns` são usados em outros componentes antes de remover do `package.json`
+- [x] Se não houver mais referências, remover o arquivo `datepicker.css`
+- [x] Verificar se `react-datepicker` e `date-fns` são usados em outros componentes antes de remover do `package.json`
 
 ### 4. Verificação visual e testes
 
-- [ ] Rodar a aplicação localmente e confirmar que a tela principal não exibe mais o calendário
-- [ ] Confirmar que o card "📊 Ver Analytics" não aparece mais na tela principal
-- [ ] Confirmar que a página `/analytics` ainda funciona normalmente
-- [ ] Confirmar que a criação de tarefas ainda funciona sem o campo de data
-- [ ] Verificar se não houve quebra de layout após a remoção dos elementos
+- [x] Rodar a aplicação localmente e confirmar que a tela principal não exibe mais o calendário
+- [x] Confirmar que o card "📊 Ver Analytics" não aparece mais na tela principal
+- [x] Confirmar que a página `/analytics` ainda funciona normalmente
+- [x] Confirmar que a criação de tarefas ainda funciona sem o campo de data
+- [x] Verificar se não houve quebra de layout após a remoção dos elementos
 
 ---
 
 ## 📐 Definition of Done (DoD)
 
-- [ ] Campo "Data/Prazo" (DatePicker) removido do formulário da tela principal
-- [ ] Card de acesso rápido "📊 Ver Analytics" removido da tela principal
-- [ ] Criação de tarefas continua funcional (campo `dia_atividade` enviado automaticamente ou de outra forma compatível com a API)
-- [ ] Rota `/analytics` e componente `Analytics.jsx` continuam funcionando
-- [ ] Arquivos CSS e dependências órfãs removidos (se aplicável)
-- [ ] Build do frontend sem erros (`npm run build` ou `yarn build` na pasta `client/`)
-- [ ] Sem regressões visuais nas demais funcionalidades da tela principal
+- [x] Campo "Data/Prazo" (DatePicker) removido do formulário da tela principal
+- [x] Card de acesso rápido "📊 Ver Analytics" removido da tela principal
+- [x] Criação de tarefas continua funcional (campo `dia_atividade` enviado automaticamente ou de outra forma compatível com a API)
+- [x] Rota `/analytics` e componente `Analytics.jsx` continuam funcionando
+- [x] Arquivos CSS e dependências órfãs removidos (se aplicável)
+- [x] Build do frontend sem erros (`npm run build` ou `yarn build` na pasta `client/`)
+- [x] Sem regressões visuais nas demais funcionalidades da tela principal
 
 ---
 
