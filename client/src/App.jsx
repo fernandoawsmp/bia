@@ -212,6 +212,18 @@ function AppContent() {
     <>
       <AddTask onAdd={addTask} />
 
+      {/* Card de acesso rápido ao Analytics */}
+      <div className="analytics-link-wrapper">
+        <a href="/analytics" className="analytics-link-card">
+          <span className="analytics-link-icon">📊</span>
+          <div className="analytics-link-text">
+            <strong>Ver Analytics</strong>
+            <span>Visualize suas tarefas por prioridade</span>
+          </div>
+          <span className="analytics-link-arrow">→</span>
+        </a>
+      </div>
+
       {tasks.length > 0 ? (
         <Tasks
           tasks={tasks}
