@@ -1,18 +1,23 @@
 import React, { useState } from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
+import { ptBR } from "date-fns/locale";
+import "react-datepicker/dist/react-datepicker.css";
 import Modal from "./Modal";
+
+// Registrar locale pt-BR para o calendário
+registerLocale("pt-BR", ptBR);
 
 const AddTask = ({ onAdd }) => {
   const [titulo, setTitulo] = useState("");
-  const [dia, setDia] = useState("");
+  const [dia, setDia] = useState(null);
   const [importante, setImportante] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Converte YYYY-MM-DD (formato do input nativo) para DD/MM/YYYY (formato da API)
+  // Converte objeto Date para string DD/MM/YYYY (formato da API)
   // Se nenhuma data for selecionada, usa a data de hoje
-  const formatarData = (dataISO) => {
-    if (!dataISO) return new Date().toLocaleDateString('pt-BR');
-    const [ano, mes, dia] = dataISO.split('-');
-    return `${dia}/${mes}/${ano}`;
+  const formatarData = (date) => {
+    if (!date) return new Date().toLocaleDateString("pt-BR");
+    return date.toLocaleDateString("pt-BR");
   };
 
   const onSubmit = (e) => {
@@ -30,7 +35,7 @@ const AddTask = ({ onAdd }) => {
     });
 
     setTitulo("");
-    setDia("");
+    setDia(null);
     setImportante(true);
   };
 
@@ -48,11 +53,21 @@ const AddTask = ({ onAdd }) => {
 
       <div className="form-control">
         <label htmlFor="data">Data</label>
-        <input
-          type="date"
+        <DatePicker
           id="data"
-          value={dia}
-          onChange={(e) => setDia(e.target.value)}
+          selected={dia}
+          onChange={(date) => setDia(date)}
+          locale="pt-BR"
+          dateFormat="dd/MM/yyyy"
+          placeholderText="Quando?"
+          isClearable
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          className="datepicker-input"
+          wrapperClassName="datepicker-wrapper"
+          popperPlacement="bottom-start"
+          autoComplete="off"
         />
       </div>
 
