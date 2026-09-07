@@ -1,19 +1,21 @@
-# 009 · feat · Calendário nativo no campo data do formulário de tarefas
+# Task 009 - Implementar Calendário no Campo Data/Prazo
 
 ## 🔧 Configuração Inicial (LEIA ANTES DE INICIAR)
 
 ### Agent Responsável
-**dev** — Este agent deve iniciar a implementação.
+**dev** - Este agent deve iniciar a implementação.
 
 ### Branch Base
 **SEMPRE `ia-main`**
 
 ### Worktree
-Esta task será implementada em worktree isolado em `.kiro/worktrees/009-feat-calendario-nativo-campo-data/`
+Esta task será implementada em worktree isolado em `.kiro/worktrees/006-feat-calendario-data-prazo/`
 
 ---
 
 ## ⚠️ CHECKLIST DE INÍCIO (OBRIGATÓRIO)
+
+Antes de começar a implementar, o agent deve:
 
 - [ ] **Verificar branch atual:** `git branch --show-current`
   - Se não estiver em `ia-main`, **PERGUNTAR** ao usuário se pode trocar
@@ -22,140 +24,208 @@ Esta task será implementada em worktree isolado em `.kiro/worktrees/009-feat-ca
 
 - [ ] **Mover task para doing:**
   ```bash
-  mv .kiro/tasks/009-feat-calendario-nativo-campo-data.md .kiro/tasks/doing/
+  mv .kiro/tasks/006-feat-calendario-data-prazo.md .kiro/tasks/doing/
   git add .kiro/tasks/
-  git commit -m "move: task 009 para doing"
+  git commit -m "move: task 006 para doing"
   git push origin ia-main
   ```
 
 - [ ] **Criar worktree:**
   ```bash
-  git worktree add .kiro/worktrees/009-feat-calendario-nativo-campo-data -b feature/009-feat-calendario-nativo-campo-data ia-main
-  cd .kiro/worktrees/009-feat-calendario-nativo-campo-data
-  git branch --show-current  # Deve mostrar: feature/009-feat-calendario-nativo-campo-data
+  git worktree add .kiro/worktrees/006-feat-calendario-data-prazo -b feature/006-feat-calendario-data-prazo ia-main
+  cd .kiro/worktrees/006-feat-calendario-data-prazo
+  git branch --show-current  # Confirmar branch correto
   ```
 
 ---
 
-## 📋 Contexto e Motivação
+## 📋 Descrição
 
-O formulário de criação de tarefas (`AddTask.jsx`) atualmente não exibe nenhum campo de data visível ao usuário — a data é preenchida automaticamente com `new Date().toLocaleDateString('pt-BR')` no momento do submit (resultado da task 008).
+Implementar um componente de calendário (date picker) no campo "Data/Prazo" da tela Home da BIA, substituindo o input text atual por um seletor de data visual e intuitivo.
 
-O usuário precisa conseguir **escolher a data via calendário visual** ao incluir uma tarefa, sem precisar digitar manualmente. O valor continua sendo gravado no banco de dados como **string no formato `DD/MM/YYYY`**, sem alteração no backend ou no modelo de dados.
-
-### Abordagem adotada: `<input type="date">` nativo
-
-Usar o input nativo do HTML5 é a solução mais simples, sem dependências externas, totalmente compatível com os browsers modernos e alinhada com a filosofia de simplicidade do projeto.
-
-- O input nativo exibe um **calendário visual** ao clicar
-- O valor retornado pelo browser é no formato `YYYY-MM-DD`
-- Antes de enviar para a API, converter para `DD/MM/YYYY`
-- Se o usuário **não selecionar nenhuma data**, usar a data de hoje automaticamente (comportamento atual preservado)
+**Contexto Importante:** 
+- Os dados no banco são persistidos como **STRING** (campo `dia_atividade`)
+- A conversão entre Date e String deve ser feita no frontend
+- Manter compatibilidade com o formato atual de data (dd/mm/yyyy ou localização pt-BR)
 
 ---
 
 ## 🎯 Objetivo
 
-Adicionar ao formulário `AddTask.jsx` um campo de data com calendário visual, usando `<input type="date">` nativo do HTML5, que:
-- Permite ao usuário escolher a data clicando em um calendário
-- Converte o valor para `DD/MM/YYYY` antes de enviar à API
-- Usa a data de hoje como padrão quando nenhuma data for selecionada
-- Não requer nenhuma biblioteca externa adicional
+Melhorar a UX permitindo que o usuário selecione a data através de um calendário visual ao invés de digitar manualmente, mantendo a compatibilidade com o backend que persiste datas como string.
 
 ---
 
-## 📁 Arquivos Impactados
+## 📝 História de Usuário
 
-| Arquivo | Alteração |
-|---|---|
-| `client/src/components/AddTask.jsx` | Adicionar campo `<input type="date">` com state e conversão de formato |
-
-> **Nenhum outro arquivo precisa ser alterado.** Backend, modelo de dados e API permanecem intactos.
+**Como** usuário da BIA  
+**Quero** selecionar a data/prazo através de um calendário visual  
+**Para que** eu possa escolher datas de forma mais rápida e intuitiva, evitando erros de digitação
 
 ---
 
-## ✅ Checklist de Implementação
+## ✅ Critérios de Aceitação
 
-### 1. Adicionar state de data no `AddTask.jsx`
-
-- [ ] Adicionar o state para a data selecionada:
-  ```jsx
-  const [dia, setDia] = useState("");
-  ```
-
-### 2. Adicionar função de conversão de formato
-
-- [ ] Criar helper para converter `YYYY-MM-DD` → `DD/MM/YYYY`:
-  ```js
-  const formatarData = (dataISO) => {
-    if (!dataISO) return new Date().toLocaleDateString('pt-BR');
-    const [ano, mes, dia] = dataISO.split('-');
-    return `${dia}/${mes}/${ano}`;
-  };
-  ```
-
-### 3. Atualizar o `onSubmit` para usar a data selecionada
-
-- [ ] Substituir o valor fixo de `dia_atividade` pela função `formatarData`:
-  ```jsx
-  onAdd({
-    titulo: titulo.trim(),
-    dia_atividade: formatarData(dia),
-    importante,
-  });
-  ```
-- [ ] Resetar o campo data após o submit:
-  ```jsx
-  setDia("");
-  ```
-
-### 4. Adicionar o campo JSX no formulário
-
-- [ ] Inserir o campo `<input type="date">` entre o campo "Tarefa" e o checkbox "Importante":
-  ```jsx
-  <div className="form-control">
-    <label htmlFor="data">Data</label>
-    <input
-      type="date"
-      id="data"
-      value={dia}
-      onChange={(e) => setDia(e.target.value)}
-    />
-  </div>
-  ```
-  - O campo **não deve ser obrigatório** (`required` ausente) — se vazio, usa a data de hoje
-
-### 5. Verificação do resultado esperado
-
-- [ ] O formulário exibe o campo "Data" com um calendário nativo ao clicar
-- [ ] Ao selecionar uma data no calendário, o campo é preenchido
-- [ ] Ao submeter sem selecionar data, `dia_atividade` recebe a data de hoje no formato `DD/MM/YYYY`
-- [ ] Ao submeter com data selecionada, `dia_atividade` recebe a data escolhida no formato `DD/MM/YYYY`
-- [ ] Após o submit, o campo data é resetado (fica vazio novamente)
-- [ ] O campo título permanece obrigatório e o modal de erro continua funcionando
-
-### 6. Build e testes
-
-- [ ] Executar build para garantir que não há erros:
-  ```bash
-  cd client && npm run build
-  ```
-- [ ] Testar criação de tarefa com data selecionada via calendário
-- [ ] Testar criação de tarefa sem selecionar data (deve usar hoje)
-- [ ] Verificar que a tarefa criada aparece corretamente na lista
+1. ✅ O campo "Data/Prazo" deve exibir um ícone de calendário
+2. ✅ Ao clicar no campo ou no ícone, um calendário visual deve aparecer
+3. ✅ O usuário deve conseguir navegar entre meses/anos no calendário
+4. ✅ Ao selecionar uma data, o campo deve ser preenchido automaticamente
+5. ✅ O formato da data deve ser mantido como string no padrão brasileiro (dd/mm/yyyy)
+6. ✅ O campo ainda deve aceitar digitação manual (fallback)
+7. ✅ A data selecionada deve ser persistida corretamente no banco como string
+8. ✅ O calendário deve ter boa usabilidade em mobile e desktop
+9. ✅ O visual do calendário deve seguir o tema da aplicação (dark/light mode)
 
 ---
 
-## 📐 Definition of Done (DoD)
+## 🛠️ Implementação
 
-- [ ] Campo "Data" com calendário nativo visível no formulário de criação de tarefas
-- [ ] Seleção de data via calendário funciona corretamente
-- [ ] Data enviada à API sempre no formato `DD/MM/YYYY` (string)
-- [ ] Quando nenhuma data é selecionada, usa a data de hoje automaticamente
-- [ ] Campo resetado após o submit
-- [ ] Sem novas dependências no `package.json`
-- [ ] Build do frontend sem erros
-- [ ] Sem regressões nas demais funcionalidades
+### 1. Escolha da Biblioteca de Date Picker
+
+Analisar e escolher uma biblioteca leve e compatível com React 18:
+
+**Opções sugeridas:**
+- `react-datepicker` (mais popular, 13.7k stars)
+- `react-day-picker` (moderna, TypeScript-first)
+- Input nativo HTML5 `type="date"` (sem dependência, mas com limitações de estilo)
+
+**Recomendação inicial:** `react-datepicker` por ser robusta e ter boa documentação.
+
+### 2. Instalação da Dependência
+
+```bash
+cd client
+npm install react-datepicker --save
+npm install --save-dev @types/react-datepicker  # Se usar TypeScript
+```
+
+### 3. Modificação do Componente AddTask.jsx
+
+**Arquivo:** `client/src/components/AddTask.jsx`
+
+**Mudanças necessárias:**
+
+- [x] Importar o componente DatePicker
+- [x] Importar o CSS do date picker
+- [x] Alterar o estado `dia` para trabalhar com objeto Date
+- [x] Substituir o input text por DatePicker
+- [x] Configurar o DatePicker com:
+  - Formato de exibição: `dd/MM/yyyy`
+  - Localização: `pt-BR`
+  - Placeholder: "Quando?"
+  - Opção de limpar data
+- [x] Converter a data selecionada para string no formato pt-BR antes de enviar para o backend
+- [x] Manter fallback para o caso de data vazia (usar data atual)
+
+**Exemplo de conversão Date → String:**
+```javascript
+const formatDateToString = (date) => {
+  if (!date) return '';
+  return date.toLocaleDateString('pt-BR');
+};
+```
+
+### 4. Estilização do Date Picker
+
+**Arquivo:** Criar `client/src/styles/datepicker.css` ou adicionar ao CSS existente
+
+- [x] Importar CSS padrão do react-datepicker
+- [x] Customizar cores para combinar com tema dark/light
+- [x] Garantir responsividade
+- [x] Ajustar z-index se necessário
+
+**Dica:** O react-datepicker vem com CSS próprio que pode ser customizado.
+
+### 5. Testes Manuais
+
+- [x] Testar seleção de data pelo calendário
+- [x] Testar navegação entre meses/anos
+- [x] Testar limpeza de data
+- [x] Testar digitação manual (se mantida)
+- [x] Testar salvamento da tarefa com data selecionada
+- [x] Testar formato da data no banco (verificar se está como string)
+- [x] Testar em mobile (responsividade)
+- [x] Testar mudança de tema (dark/light mode)
+
+---
+
+## 🔍 Validações Técnicas
+
+### Backend
+- ✅ Não precisa alteração (campo `dia_atividade` já é string)
+- ✅ Verificar se o formato dd/mm/yyyy é mantido
+
+### Frontend
+- ✅ Conversão correta de Date para String
+- ✅ Tratamento de data nula/vazia
+- ✅ Compatibilidade com React 18
+- ✅ Bundle size aceitável (react-datepicker é ~230KB)
+
+---
+
+## 📦 Dependências
+
+- `react-datepicker`: ^4.x ou superior
+- Compatível com React 18.3.1
+
+---
+
+## 🎨 UX/UI
+
+### Comportamento Esperado:
+1. Usuário clica no campo "Data/Prazo"
+2. Calendário abre automaticamente
+3. Usuário navega até o mês/ano desejado
+4. Usuário clica na data
+5. Calendário fecha
+6. Campo é preenchido com a data no formato dd/mm/yyyy
+
+### Estados do Campo:
+- **Vazio:** Exibir placeholder "Quando?"
+- **Com data:** Exibir data formatada (ex: 28/07/2026)
+- **Foco:** Abrir calendário
+- **Hover:** Indicar interatividade (cursor pointer, borda destacada)
+
+---
+
+## 📚 Referências
+
+- [React DatePicker Docs](https://reactdatepicker.com/)
+- [Localização pt-BR do date-fns](https://date-fns.org/v2.29.3/docs/Locale)
+- [Worktree Workflow](.kiro/docs/worktree-workflow.md)
+- [Worktree Steering](.kiro/docs/worktree-steering.md)
+
+---
+
+## 📊 Estimativa
+
+**Complexidade:** Baixa  
+**Tempo estimado:** 2-3 horas  
+**Impacto:** Alto (melhora significativa na UX)
+
+---
+
+## ⚠️ Observações Importantes
+
+1. **Manter formato string no banco:** A conversão Date → String deve ser transparente para o backend
+2. **Não quebrar funcionalidade existente:** Se o calendário falhar, o campo deve continuar funcionando
+3. **Acessibilidade:** Garantir que o date picker seja acessível via teclado (Tab, Enter, Esc)
+4. **Performance:** Lazy load do CSS se possível
+
+---
+
+## 🔄 Definition of Done (DoD)
+
+- [x] Biblioteca de date picker instalada e configurada
+- [x] Componente AddTask.jsx atualizado com DatePicker
+- [x] Data convertida corretamente para string (dd/mm/yyyy)
+- [x] Calendário funcional em desktop
+- [x] Calendário funcional em mobile
+- [x] Visual integrado ao tema da aplicação
+- [x] Testes manuais realizados com sucesso
+- [x] Data persistida corretamente no banco como string
+- [x] Código commitado com mensagens descritivas
+- [x] Push realizado para o branch feature/009-feat-calendario-nativo-campo-data
 
 ---
 
@@ -165,27 +235,29 @@ Quando o agent concluir a implementação:
 
 ### 1. Verificação Final
 ```bash
+# Garantir que está no worktree correto
 pwd
-# Deve estar em: /caminho/do/projeto/.kiro/worktrees/009-feat-calendario-nativo-campo-data
+# Deve estar em: /Users/henrylle/Projetos/formacaoaws/bia/.kiro/worktrees/006-feat-calendario-data-prazo
 
+# Verificar branch
 git branch --show-current
-# Deve mostrar: feature/009-feat-calendario-nativo-campo-data
+# Deve mostrar: feature/006-feat-calendario-data-prazo
 ```
 
 ### 2. Commit e Push Final
 ```bash
 git add .
-git commit -m "feat: adiciona calendário nativo no campo data do formulário de tarefas"
-git push origin feature/009-feat-calendario-nativo-campo-data
+git commit -m "feat: implementa calendário no campo Data/Prazo"
+git push origin feature/006-feat-calendario-data-prazo
 ```
 
 ### 3. Voltar para Raiz e Notificar PO
 ```bash
-cd ../../..
+cd ../../..  # Voltar para raiz do projeto
 ```
 
 **NOTIFICAR O PO:**
-> "Task 009 concluída. Todos os itens do checklist marcados. Branch `feature/009-feat-calendario-nativo-campo-data` com push realizado. Aguardando revisão do PO para encerramento e abertura de PR."
+> "Task 006 concluída. Todos os itens do checklist marcados. Branch `feature/006-feat-calendario-data-prazo` com push realizado. Calendário implementado com react-datepicker, mantendo compatibilidade com formato string no banco. Aguardando revisão do PO para encerramento e abertura de PR."
 
 **⚠️ NÃO REMOVER O WORKTREE. Apenas o PO faz isso após o PR ser mergeado.**
 
@@ -195,43 +267,77 @@ cd ../../..
 
 ### 1. Revisão
 ```bash
-cd .kiro/worktrees/009-feat-calendario-nativo-campo-data
-# Revisar código e testar funcionalidade
+# Entrar no worktree para revisar
+cd .kiro/worktrees/006-feat-calendario-data-prazo
+
+# Testar a funcionalidade:
+# - Abrir a aplicação
+# - Testar o calendário em diferentes cenários
+# - Verificar formato da data salva
+# - Testar responsividade
+# - Verificar integração com tema
+
+# Revisar código
 # Verificar se todos os itens estão ✅
 ```
 
 ### 2. Aprovar e Mover para Done
 ```bash
+# Voltar para raiz
 cd ../../..
-mv .kiro/tasks/doing/009-feat-calendario-nativo-campo-data.md .kiro/tasks/done/
+
+# Mover task para done
+mv .kiro/tasks/doing/006-feat-calendario-data-prazo.md .kiro/tasks/done/
+
+# Commit e push no ia-main
 git checkout ia-main
 git add .kiro/tasks/
-git commit -m "move: task 009 para done"
+git commit -m "move: task 006 para done"
 git push origin ia-main
 ```
 
 ### 3. Abrir Pull Request
 ```bash
-cd .kiro/worktrees/009-feat-calendario-nativo-campo-data
+# ANTES de abrir PR: confirmar que está no branch da feature
+cd .kiro/worktrees/006-feat-calendario-data-prazo
 git branch --show-current
-# Deve mostrar: feature/009-feat-calendario-nativo-campo-data
+# Deve mostrar: feature/006-feat-calendario-data-prazo
 
-gh pr create --base ia-main --title "009: Calendário nativo no campo data do formulário" --body "Closes task 009"
+# Abrir PR contra ia-main
+gh pr create --base ia-main --title "006: Implementar calendário no campo Data/Prazo" --body "Closes task 006
+
+## Mudanças
+- Adicionado react-datepicker como dependência
+- Substituído input text por DatePicker no componente AddTask
+- Mantida compatibilidade com formato string (dd/mm/yyyy) no banco
+- Customizado visual para seguir tema da aplicação
+
+## Testes realizados
+- ✅ Seleção de data via calendário
+- ✅ Navegação entre meses/anos
+- ✅ Persistência correta como string
+- ✅ Responsividade mobile/desktop
+- ✅ Integração com tema dark/light"
 ```
 
 ### 4. Após PR Mergeado
 ```bash
+# Voltar para raiz
 cd ../../..
-git worktree remove .kiro/worktrees/009-feat-calendario-nativo-campo-data
+
+# Remover worktree
+git worktree remove .kiro/worktrees/006-feat-calendario-data-prazo
+
+# Ou com força se necessário:
+# git worktree remove --force .kiro/worktrees/006-feat-calendario-data-prazo
+
+# Limpar registros
 git worktree prune
-git branch -d feature/009-feat-calendario-nativo-campo-data
+
+# (Opcional) Deletar branch local
+git branch -d feature/006-feat-calendario-data-prazo
+
+# Notificar conclusão
 ```
 
-Notificar conclusão: "Task 009 finalizada. Worktree removido. PR #<número> mergeado com sucesso."
-
----
-
-## 📚 Referências
-- [Worktree Workflow](.kiro/docs/worktree-workflow.md)
-- [Worktree Steering](.kiro/docs/worktree-steering.md)
-- [Task Template](.kiro/docs/task-template-with-worktree.md)
+**Notificação:** "Task 009 finalizada. Worktree removido. PR #X mergeado com sucesso. Calendário implementado com sucesso na tela Home."
