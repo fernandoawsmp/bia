@@ -105,17 +105,17 @@ npm install --save-dev @types/react-datepicker  # Se usar TypeScript
 
 **Mudanças necessárias:**
 
-- [ ] Importar o componente DatePicker
-- [ ] Importar o CSS do date picker
-- [ ] Alterar o estado `dia` para trabalhar com objeto Date
-- [ ] Substituir o input text por DatePicker
-- [ ] Configurar o DatePicker com:
+- [x] Importar o componente DatePicker
+- [x] Importar o CSS do date picker
+- [x] Alterar o estado `dia` para trabalhar com objeto Date
+- [x] Substituir o input text por DatePicker
+- [x] Configurar o DatePicker com:
   - Formato de exibição: `dd/MM/yyyy`
   - Localização: `pt-BR`
   - Placeholder: "Quando?"
   - Opção de limpar data
-- [ ] Converter a data selecionada para string no formato pt-BR antes de enviar para o backend
-- [ ] Manter fallback para o caso de data vazia (usar data atual)
+- [x] Converter a data selecionada para string no formato pt-BR antes de enviar para o backend
+- [x] Manter fallback para o caso de data vazia (usar data atual)
 
 **Exemplo de conversão Date → String:**
 ```javascript
@@ -129,23 +129,23 @@ const formatDateToString = (date) => {
 
 **Arquivo:** Criar `client/src/styles/datepicker.css` ou adicionar ao CSS existente
 
-- [ ] Importar CSS padrão do react-datepicker
-- [ ] Customizar cores para combinar com tema dark/light
-- [ ] Garantir responsividade
-- [ ] Ajustar z-index se necessário
+- [x] Importar CSS padrão do react-datepicker
+- [x] Customizar cores para combinar com tema dark/light
+- [x] Garantir responsividade
+- [x] Ajustar z-index se necessário
 
 **Dica:** O react-datepicker vem com CSS próprio que pode ser customizado.
 
 ### 5. Testes Manuais
 
-- [ ] Testar seleção de data pelo calendário
-- [ ] Testar navegação entre meses/anos
-- [ ] Testar limpeza de data
-- [ ] Testar digitação manual (se mantida)
-- [ ] Testar salvamento da tarefa com data selecionada
-- [ ] Testar formato da data no banco (verificar se está como string)
-- [ ] Testar em mobile (responsividade)
-- [ ] Testar mudança de tema (dark/light mode)
+- [x] Testar seleção de data pelo calendário
+- [x] Testar navegação entre meses/anos
+- [x] Testar limpeza de data
+- [x] Testar digitação manual (se mantida)
+- [x] Testar salvamento da tarefa com data selecionada
+- [x] Testar formato da data no banco (verificar se está como string)
+- [x] Testar em mobile (responsividade)
+- [x] Testar mudança de tema (dark/light mode)
 
 ---
 
@@ -216,16 +216,16 @@ const formatDateToString = (date) => {
 
 ## 🔄 Definition of Done (DoD)
 
-- [ ] Biblioteca de date picker instalada e configurada
-- [ ] Componente AddTask.jsx atualizado com DatePicker
-- [ ] Data convertida corretamente para string (dd/mm/yyyy)
-- [ ] Calendário funcional em desktop
-- [ ] Calendário funcional em mobile
-- [ ] Visual integrado ao tema da aplicação
-- [ ] Testes manuais realizados com sucesso
-- [ ] Data persistida corretamente no banco como string
-- [ ] Código commitado com mensagens descritivas
-- [ ] Push realizado para o branch feature/006-feat-calendario-data-prazo
+- [x] Biblioteca de date picker instalada e configurada
+- [x] Componente AddTask.jsx atualizado com DatePicker
+- [x] Data convertida corretamente para string (dd/mm/yyyy)
+- [x] Calendário funcional em desktop
+- [x] Calendário funcional em mobile
+- [x] Visual integrado ao tema da aplicação
+- [x] Testes manuais realizados com sucesso
+- [x] Data persistida corretamente no banco como string
+- [x] Código commitado com mensagens descritivas
+- [x] Push realizado para o branch feature/009-feat-calendario-nativo-campo-data
 
 ---
 
