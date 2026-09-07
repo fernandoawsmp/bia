@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   BarChart,
@@ -9,6 +9,9 @@ import {
   Cell,
   ResponsiveContainer,
   Tooltip,
+  PieChart,
+  Pie,
+  Legend,
 } from "recharts"
 import {
   Card,
@@ -67,6 +70,8 @@ const CustomBarLabel = ({ x, y, width, value }) => {
 }
 
 export default function Analytics({ tasks = [] }) {
+  const [chartType, setChartType] = useState("bar") // "bar" | "pie"
+
   const stats = useMemo(() => {
     const importantesCount = tasks.filter((t) => t.importante).length
     const normaisCount = tasks.filter((t) => !t.importante).length
@@ -113,7 +118,7 @@ export default function Analytics({ tasks = [] }) {
         </div>
       ) : (
         <>
-          {/* Gráfico de Barras */}
+          {/* Gráfico */}
           <Card className="analytics-card">
             <CardHeader>
               <CardTitle className="analytics-card-title">
@@ -124,64 +129,108 @@ export default function Analytics({ tasks = [] }) {
               </CardDescription>
             </CardHeader>
             <CardContent>
+              {/* Botões alternadores de visualização */}
+              <div className="chart-toggle">
+                <button
+                  className={`chart-toggle-btn ${chartType === "bar" ? "active" : ""}`}
+                  onClick={() => setChartType("bar")}
+                  aria-pressed={chartType === "bar"}
+                >
+                  📊 Barras
+                </button>
+                <button
+                  className={`chart-toggle-btn ${chartType === "pie" ? "active" : ""}`}
+                  onClick={() => setChartType("pie")}
+                  aria-pressed={chartType === "pie"}
+                >
+                  🥧 Pizza
+                </button>
+              </div>
+
               <div
                 className="analytics-chart-wrapper"
                 role="img"
                 aria-label={`Gráfico: ${stats.importantesCount} tarefas importantes e ${stats.normaisCount} tarefas normais`}
               >
-                <ResponsiveContainer width="100%" height={280}>
-                  <BarChart
-                    data={chartData}
-                    margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
-                    barCategoryGap="35%"
-                  >
-                    <CartesianGrid
-                      strokeDasharray="3 3"
-                      stroke="var(--border-color)"
-                      vertical={false}
-                    />
-                    <XAxis
-                      dataKey="category"
-                      tick={{ fill: "var(--text-secondary)", fontSize: 13 }}
-                      axisLine={{ stroke: "var(--border-color)" }}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      allowDecimals={false}
-                      tick={{ fill: "var(--text-secondary)", fontSize: 12 }}
-                      axisLine={false}
-                      tickLine={false}
-                      width={30}
-                    />
-                    <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(0,0,0,0.05)" }} />
-                    <Bar dataKey="count" radius={[6, 6, 0, 0]} label={<CustomBarLabel />}>
-                      {chartData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+                {chartType === "pie" ? (
+                  <ResponsiveContainer width="100%" height={280}>
+                    <PieChart>
+                      <Pie
+                        data={chartData}
+                        dataKey="count"
+                        nameKey="category"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={100}
+                        label={({ name, percent }) =>
+                          `${name} ${(percent * 100).toFixed(0)}%`
+                        }
+                      >
+                        {chartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip content={<CustomTooltip />} />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <ResponsiveContainer width="100%" height={280}>
+                    <BarChart
+                      data={chartData}
+                      margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
+                      barCategoryGap="35%"
+                    >
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="var(--border-color)"
+                        vertical={false}
+                      />
+                      <XAxis
+                        dataKey="category"
+                        tick={{ fill: "var(--text-secondary)", fontSize: 13 }}
+                        axisLine={{ stroke: "var(--border-color)" }}
+                        tickLine={false}
+                      />
+                      <YAxis
+                        allowDecimals={false}
+                        tick={{ fill: "var(--text-secondary)", fontSize: 12 }}
+                        axisLine={false}
+                        tickLine={false}
+                        width={30}
+                      />
+                      <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(0,0,0,0.05)" }} />
+                      <Bar dataKey="count" radius={[6, 6, 0, 0]} label={<CustomBarLabel />}>
+                        {chartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
               </div>
 
-              {/* Legenda visual */}
-              <div className="analytics-legend">
-                <div className="analytics-legend-item">
-                  <span
-                    className="analytics-legend-dot"
-                    style={{ backgroundColor: COLORS.importantes }}
-                    aria-hidden="true"
-                  />
-                  <span>Importantes</span>
+              {/* Legenda visual — exibida apenas no modo barras */}
+              {chartType === "bar" && (
+                <div className="analytics-legend">
+                  <div className="analytics-legend-item">
+                    <span
+                      className="analytics-legend-dot"
+                      style={{ backgroundColor: COLORS.importantes }}
+                      aria-hidden="true"
+                    />
+                    <span>Importantes</span>
+                  </div>
+                  <div className="analytics-legend-item">
+                    <span
+                      className="analytics-legend-dot"
+                      style={{ backgroundColor: COLORS.normais }}
+                      aria-hidden="true"
+                    />
+                    <span>Normais</span>
+                  </div>
                 </div>
-                <div className="analytics-legend-item">
-                  <span
-                    className="analytics-legend-dot"
-                    style={{ backgroundColor: COLORS.normais }}
-                    aria-hidden="true"
-                  />
-                  <span>Normais</span>
-                </div>
-              </div>
+              )}
             </CardContent>
           </Card>
 
