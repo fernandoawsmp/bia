@@ -226,3 +226,21 @@ Notificar conclusão: "Task 004 finalizada. Worktree removido. PR #<número> mer
 - [Worktree Workflow](.kiro/docs/worktree-workflow.md)
 - [Worktree Steering](.kiro/docs/worktree-steering.md)
 - [Task Template](.kiro/docs/task-template-with-worktree.md)
+
+---
+
+## 🔁 Pós-Encerramento — Correção Identificada (07/09/2026)
+
+Durante revisão pós-encerramento, foi identificado que o remote `upstream` estava apontando para o repositório incorreto (`fernandoawsmp/bia` em vez de `henrylle/bia`).
+
+**Correção aplicada pelo PO:**
+```bash
+git remote set-url upstream https://github.com/henrylle/bia.git
+git fetch upstream
+```
+
+**Resultado após correção:**
+- `origin` → `https://github.com/fernandoawsmp/bia.git` (fork pessoal) ✅
+- `upstream` → `https://github.com/henrylle/bia.git` (repositório original) ✅
+
+**Lição aprendida:** Ao configurar o remote `upstream` nas tasks futuras, sempre verificar que aponta para o repositório original (`henrylle/bia`), e não para o fork.
