@@ -1,5 +1,7 @@
 ## Projeto base para o módulo Agentes de IA e Multi-Agentes da Formação AWS.
 
+[![Testes Unitários](https://github.com/fernandoawsmp/bia/actions/workflows/testes-pr.yml/badge.svg?branch=ia-main)](https://github.com/fernandoawsmp/bia/actions/workflows/testes-pr.yml)
+
 ### Curso: Formação AWS
 ### Módulo: Agentes de IA e Multi Agentic
 
