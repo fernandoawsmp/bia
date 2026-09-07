@@ -1404,3 +1404,35 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* =========================================
+   Chart Toggle — Alternador Barras / Pizza
+   ========================================= */
+
+.chart-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.chart-toggle-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.chart-toggle-btn.active {
+  background: var(--primary-color, #3b82f6);
+  color: #fff;
+  border-color: var(--primary-color, #3b82f6);
+}
+
+.chart-toggle-btn:hover:not(.active) {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.05));
+}
