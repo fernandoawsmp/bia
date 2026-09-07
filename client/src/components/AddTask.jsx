@@ -3,8 +3,17 @@ import Modal from "./Modal";
 
 const AddTask = ({ onAdd }) => {
   const [titulo, setTitulo] = useState("");
+  const [dia, setDia] = useState("");
   const [importante, setImportante] = useState(true);
   const [showModal, setShowModal] = useState(false);
+
+  // Converte YYYY-MM-DD (formato do input nativo) para DD/MM/YYYY (formato da API)
+  // Se nenhuma data for selecionada, usa a data de hoje
+  const formatarData = (dataISO) => {
+    if (!dataISO) return new Date().toLocaleDateString('pt-BR');
+    const [ano, mes, dia] = dataISO.split('-');
+    return `${dia}/${mes}/${ano}`;
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +25,12 @@ const AddTask = ({ onAdd }) => {
 
     onAdd({
       titulo: titulo.trim(),
-      dia_atividade: new Date().toLocaleDateString('pt-BR'),
+      dia_atividade: formatarData(dia),
       importante,
     });
 
     setTitulo("");
+    setDia("");
     setImportante(true);
   };
 
@@ -33,6 +43,16 @@ const AddTask = ({ onAdd }) => {
           placeholder="O que você precisa fazer?"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
+        />
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="data">Data</label>
+        <input
+          type="date"
+          id="data"
+          value={dia}
+          onChange={(e) => setDia(e.target.value)}
         />
       </div>
 
